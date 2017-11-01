@@ -402,8 +402,8 @@ def _block_check_depths_match(arrays, parent_index=[]):
             )
         )
     elif type(arrays) is list and len(arrays) > 0:
-        indexes, arr_ndims = zip(*(_block_check_depths_match(arr, parent_index + [i])
-                                   for i, arr in enumerate(arrays)))
+        indexes, arr_ndims = zip(*[_block_check_depths_match(arr, parent_index + [i])
+                                   for i, arr in enumerate(arrays)])
 
         first_index = indexes[0]
         for i, index in enumerate(indexes):
@@ -419,7 +419,7 @@ def _block_check_depths_match(arrays, parent_index=[]):
         return first_index, max(arr_ndims)
     elif type(arrays) is list and len(arrays) == 0:
         # We've 'bottomed out' on an empty list
-        return parent_index + [None], _nx.ndim(arrays)
+        return parent_index + [None], 0
     else:
         # We've 'bottomed out' - arrays is either a scalar or an array
         return parent_index, _nx.ndim(arrays)
